@@ -52,8 +52,15 @@ but ideally you would install to your user's directory
 
     $ cargo install --path .
 
-If you want the application to be available in your desktop's menus, copy the
-files in the _share/_ tree to _~/.local/share/_ or _~/usr/local/_.
+On Linux, the release tarball is laid out as an installation prefix, so
+unpacking it into _~/.local/_ puts the binaries in _~/.local/bin/_ and the
+desktop entry and icon where your desktop's menus will find them:
+
+    $ tar -xzf slashtime-v0.7.2-linux-x86_64.tar.gz -C ~/.local --strip-components=1
+
+If you installed with `cargo install` and want the menu entry, copy
+_share/applications/_ and _share/icons/_ to _~/.local/share/_. The rest of the
+_share/_ tree is compiled into the binary and does not need to be installed.
 
 ## HISTORY
 

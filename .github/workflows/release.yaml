@@ -91,8 +91,17 @@ jobs:
 
                   echo "target=${TARGET}" >> $GITHUB_OUTPUT
 
-            - name: Compress binaries (Unix)
-              if: runner.os != 'Windows'
+            - name: Compress binaries (Linux)
+              if: runner.os == 'Linux'
+              run: |
+                  PREFIX="slashtime-${{ github.ref_name }}"
+                  install -D -t ${PREFIX}/bin target/release/slashtime-cli target/release/slashtime-gui
+                  install -D -m 644 -t ${PREFIX}/share/applications share/applications/org.aesiniath.Slashtime.desktop
+                  install -D -m 644 -t ${PREFIX}/share/icons/hicolor/48x48/apps share/icons/hicolor/48x48/apps/slashtime.png
+                  tar -czf ${{ steps.prepare.outputs.target }} ${PREFIX}
+
+            - name: Compress binaries (macOS)
+              if: runner.os == 'macOS'
               run: |
                   tar -czf ${{ steps.prepare.outputs.target }} -C target/release slashtime-cli slashtime-gui
 
