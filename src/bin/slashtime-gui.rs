@@ -1,3 +1,8 @@
+// Without this Windows opens a console window alongside the GUI, clearly
+// undesirable. The unfortunate consequence, however, is that stdout and
+// stderr are discarded as a result, so no help or error messages.
+#![cfg_attr(windows, windows_subsystem = "windows")]
+
 use clap::{value_parser, Arg, ArgAction, Command};
 use eframe::egui;
 use slashtime::{
